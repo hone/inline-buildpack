@@ -1,6 +1,6 @@
 [package]
 name = "inline-buildpack"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Terence Lee <hone02@gmail.com>"]
 edition = "2018"
 
