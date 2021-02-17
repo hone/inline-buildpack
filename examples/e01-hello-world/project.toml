@@ -1,0 +1,19 @@
+[project]
+id = "hello-world" # machine readable
+name = "Inline Buildpack Hello World" # human readable
+version = "0.1.0"
+authors = ["Terence Lee <hone02@gmail.com>"]
+source-url = "https://github.com/hone/inline-buildpack"
+
+[[project.licenses]]
+type = "MIT"
+
+[build]
+[[build.buildpacks]]
+uri = "/home/hone02/Projects/cnb/inline-buildpack/packages/buildpack-0.1.tgz"
+
+[build.buildpacks.script]
+api = "0.4"
+inline = """
+echo "Hello World"
+"""
