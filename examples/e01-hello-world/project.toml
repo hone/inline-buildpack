@@ -10,7 +10,7 @@ type = "MIT"
 
 [build]
 [[build.buildpacks]]
-uri = "/home/hone02/Projects/cnb/inline-buildpack/packages/buildpack-0.1.tgz"
+uri = "https://github.com/hone/inline-buildpack/releases/download/v0.1.0/inline-buildpack-0.1.0.tgz"
 
 [build.buildpacks.script]
 api = "0.4"
