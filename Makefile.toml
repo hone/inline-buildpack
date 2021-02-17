@@ -19,14 +19,14 @@ cp target/x86_64-unknown-linux-musl/release/bp_detect target/x86_64-unknown-linu
 mv "$tmpdir"/bin/bp_detect "$tmpdir"/bin/detect
 mv "$tmpdir"/bin/bp_build "$tmpdir"/bin/build
 cp buildpack.toml "$tmpdir"
-mkdir -p packages/
-tar -czf packages/inline-buildpack-"$CARGO_MAKE_PROJECT_VERSION".tgz -C "$tmpdir" bin/ buildpack.toml
+mkdir -p out/packages/
+tar -czf out/packages/inline-buildpack-"$CARGO_MAKE_PROJECT_VERSION".tgz -C "$tmpdir" bin/ buildpack.toml
 '''
 
 [tasks.prepare]
 script_runner = "@shell"
 script = '''
-tmpdir="development"
+tmpdir="out/development"
 rm -rf "$tmpdir"
 mkdir -p "$tmpdir"/bin
 cp target/x86_64-unknown-linux-musl/debug/bp_detect target/x86_64-unknown-linux-musl/debug/bp_build "$tmpdir"/bin
