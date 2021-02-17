@@ -20,14 +20,21 @@ fn build(ctx: GenericBuildContext) -> anyhow::Result<()> {
         .get("buildpacks")
         .ok_or_else(|| anyhow!(r#"project.toml did not have a "build.buildpacks" key"#))?
         .as_array()
-        .ok_or_else(|| anyhow!(r#""build.buildpacks" is not an array"#))?;
+        .ok_or_else(|| anyhow!(r#""build.buildpacks" is not an array"#))?
+        .into_iter()
+        .map(|buildpack| {
+            Ok(buildpack.as_table().ok_or_else(|| {
+                anyhow!(r#"build.buildpacks element is not a table: {}"#, buildpack)
+            })?)
+        })
+        .collect::<Result<Vec<&toml::map::Map<String, toml::Value>>, anyhow::Error>>()?;
 
-    if let Some(inline) = buildpacks.into_iter().find(|buildpack| {
-        let bp_table = buildpack.as_table().unwrap();
-        bp_table.contains_key("script")
-    }) {
-        let inline_table = inline.as_table().unwrap();
-        let script_table = inline_table.get("script").unwrap();
+    if let Some(script) = buildpacks
+        .into_iter()
+        .find(|buildpack| buildpack.contains_key("script"))
+    {
+        // just did this check above
+        let script_table = script.get("script").unwrap();
         let script = script_table.clone().try_into::<Script>()?;
 
         let script_layer = ctx.layer("script")?;
