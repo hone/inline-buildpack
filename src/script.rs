@@ -12,6 +12,7 @@ const DEFAULT_SHELL: &str = "#!/bin/sh";
 #[derive(Deserialize)]
 pub struct Script {
     // Ignored since can't dynamically change the Buildpack API while running
+    #[allow(dead_code)]
     api: BuildpackApi,
     #[serde(default = "default_shell")]
     shell: String,
@@ -30,8 +31,7 @@ impl Script {
                 self.shell, self.inline
             ),
         )?;
-        let file = fs::File::open(&path)?;
-        file.metadata()?.permissions().set_mode(0o755);
+        fs::set_permissions(&path, fs::Permissions::from_mode(0o755))?;
 
         let mut cmd = Command::new(path.as_ref().as_os_str())
             .stdout(Stdio::inherit())

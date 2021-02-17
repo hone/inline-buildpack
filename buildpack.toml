@@ -6,4 +6,7 @@ version = "0.1.0"
 name = "Inline Buildpack"
 
 [[stacks]]
-id = "*"
+id = "io.buildpacks.stacks.bionic"
+
+[[stacks]]
+id = "heroku-18"
