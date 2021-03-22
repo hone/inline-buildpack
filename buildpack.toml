@@ -2,7 +2,7 @@ api = "0.4"
 
 [buildpack]
 id = "hone/inline"
-version = "0.1.0"
+version = "0.1.2"
 name = "Inline Buildpack"
 
 [[stacks]]
