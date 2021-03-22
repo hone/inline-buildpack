@@ -19,8 +19,9 @@ cp target/x86_64-unknown-linux-musl/release/bp_detect target/x86_64-unknown-linu
 mv "$tmpdir"/bin/bp_detect "$tmpdir"/bin/detect
 mv "$tmpdir"/bin/bp_build "$tmpdir"/bin/build
 cp buildpack.toml "$tmpdir"
+cp package.toml "$tmpdir"
 mkdir -p out/packages/
-tar -czf out/packages/inline-buildpack-"$CARGO_MAKE_PROJECT_VERSION".tgz -C "$tmpdir" bin/ buildpack.toml
+tar -czf out/packages/inline-buildpack-v"$CARGO_MAKE_PROJECT_VERSION".tgz -C "$tmpdir" bin/ buildpack.toml package.toml
 '''
 
 [tasks.prepare]
